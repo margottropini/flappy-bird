@@ -11,12 +11,31 @@ const size = [51, 36]; //taille oiseau
 const jump = -11.5;
 const cTenth = canvas.width / 10;
 
+// Réglages des poteaux
+const pipeWidth = 78;
+const pipeGap = 270; // l'écart entre les poteaux
+const pipeLoc = () =>
+  // Génère emplacement de poteaux
+  Math.random() * (canvas.height - (pipeGap + pipeWidth) - pipeWidth) +
+  pipeWidth;
+
 let index = 0, // Me permettra de créer l'effet d'optique, le fond bouge a une allure et les poteaux bouge 2 fois plus vite que le fond
   bestScore = 0,
   flight,
   flyHeight,
-  currentScore,
-  pipe;
+  currentScore = 0,
+  pipes = [];
+
+// Cete fonction sera appelé à chaque fois que je relance le jeu ou la page
+const setup = () => {
+  currentScore = 0; // on remet le score a 0
+  flight = jump;
+  flyHeight = canvas.height / 2 - size[1] / 2; // recentre l'oiseau
+
+  pipes = Array(3)
+    .fill()
+    .map((a, i) => [canvas.width + i * (pipeGap + pipeWidth), pipeLoc()]);
+}; // Je créer un tableau de 3 elements et dans ces 3 elements y'aura un tableau de 2 elements
 
 const render = () => {
   // cette fonction va rendre l'animation
@@ -76,9 +95,45 @@ const render = () => {
     context.fillText(`Cliquez pour jouer`, 48, 535); //48 axe X 543 axe Y
     context.font = "bold 30px courier";
   }
+
+  //affichage des poteaux
+  if (gamePlaying) {
+    // SI gamePlaying est à true alors affiche les tuyeaux
+    pipes.map((pipe) => {
+      pipe[0] -= speed;
+
+      //Affichage en top des tuyeaux
+      context.drawImage(
+        img,
+        432,
+        588 - pipe[1],
+        pipeWidth,
+        pipe[1],
+        pipe[0],
+        0,
+        pipeWidth,
+        pipe[1]
+      );
+
+      //Affichage en bottom des tuyeaux
+      context.drawImage(
+        img,
+        432 + pipeWidth,
+        108,
+        pipeWidth,
+        canvas.height - pipe[1] + pipeGap,
+        pipe[0],
+        pipe[1] + pipeGap,
+        pipeWidth,
+        canvas.height - pipe[1] + pipeGap
+      );
+    });
+  }
+
   window.requestAnimationFrame(render); // on fait tourner en boucle
 };
 
+setup();
 img.onload = render; // au chargement de l'image, tu peux commencer à lancer render
 document.addEventListener("click", () => (gamePlaying = true)); // Au clique, tu changes le booléen de gamePlaying
 window.onclick = () => (flight = jump); // on lui donne la valeur du jump
