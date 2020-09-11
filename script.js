@@ -114,7 +114,6 @@ const render = () => {
         pipeWidth,
         pipe[1]
       );
-
       //Affichage en bottom des tuyeaux
       context.drawImage(
         img,
@@ -127,8 +126,38 @@ const render = () => {
         pipeWidth,
         canvas.height - pipe[1] + pipeGap
       );
+
+      if (pipe[0] <= -pipeWidth) {
+        // SI le poteaux sort de l'écran pr la gauche, ça fait 1 point
+        currentScore++;
+        bestScore = Math.max(bestScore, currentScore); // SI le score actuel est le meilleur score
+
+        // enlever les tuyeaux et en créer des nouveaux
+        pipes = [
+          ...pipes.slice(1),
+          [pipes[pipes.length - 1][0] + pipeGap + pipeWidth, pipeLoc()],
+        ];
+      }
+
+      //fin de partie si on tape le tuyeaux
+      if (
+        [
+          pipe[0] <= cTenth + size[0], // Si l'oiseau touche le tuyeau
+          pipe[0] + pipeWidth >= cTenth,
+          pipe[1] > flyHeight || pipe[1] + pipeGap < flyHeight + size[1],
+        ].every((elem) => elem)
+      ) {
+        //test si toutes les valeurs sont true
+        gamePlaying = false;
+        setup();
+      }
     });
   }
+
+  document.getElementById("bestScore").innerHTML = `Meilleur : ${bestScore}`;
+  document.getElementById(
+    "currentScore"
+  ).innerHTML = `Actuel : ${currentScore}`;
 
   window.requestAnimationFrame(render); // on fait tourner en boucle
 };
