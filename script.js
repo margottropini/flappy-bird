@@ -25,7 +25,7 @@ const render = () => {
   context.drawImage(
     img, // dans img
     432, // prend l'oiseau qui commence à 432 sur l'axe des x
-    0, //sur l'axe des Y
+    Math.floor((index % 9) / 3) * size[1], //sur l'axe des Y math floor de index, on divise par 3 X la taille en hauteur de l'oiseau. En gros ça me permet de changer les 3 images de l'oiseau
     ...size, // const
     canvas.width / 2 - size[0] / 2, // la largeur du canvas /2 - la taille de la largeur de l'oiseau
     flyHeight, // const
