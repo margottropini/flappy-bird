@@ -22,10 +22,23 @@ const render = () => {
   // cette fonction va rendre l'animation
   index++; // des que j'appelle le render index fera ++
 
+  // background
+  context.drawImage(
+    img,
+    0, // tu commences a 0 sur les X
+    0, // tu commences a 0 sur les Y
+    canvas.width, // tu vas jusqu'a canvas.width
+    canvas.height, // tu vas jusqu'à canvas.height
+    -((index * (speed / 2)) % canvas.width) + canvas.width, // en mettant l'index en négatif le décors ira de la droite vers la gauche. On divise la speed par 2 pour qui'l défile 2x moin vite que les poteaux. modulo de canvas.width pour pas qu'il aille à l'infini. Tout ça dà destinatin de canvas.width et de canvas.height
+    0,
+    canvas.width,
+    canvas.height
+  );
+
   context.drawImage(
     img, // dans img
     432, // prend l'oiseau qui commence à 432 sur l'axe des x
-    Math.floor((index % 9) / 3) * size[1], //sur l'axe des Y math floor de index, on divise par 3 X la taille en hauteur de l'oiseau. En gros ça me permet de changer les 3 images de l'oiseau
+    Math.floor((index % 9) / 3) * size[1], //sur l'axe des Y math floor de index, on divise par 3 X la taille en hauteur de l'oiseau. En gros les 3 images d'oiseau se mettent les unes sur les autres et on dirait qu'il bat des ailes
     ...size, // const
     canvas.width / 2 - size[0] / 2, // la largeur du canvas /2 - la taille de la largeur de l'oiseau
     flyHeight, // const
