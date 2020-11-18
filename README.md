@@ -1,7 +1,6 @@
-### getContext
+# Jeu point and click réalisé en JavaScript
 
-https://developer.mozilla.org/fr/docs/Web/API/HTMLCanvasElement/getContext
+## Fonctionnalités
 
-## drawImage()
-
-https://developer.mozilla.org/fr/docs/Web/API/CanvasRenderingContext2D/drawImage
+- Cliquer sur l'écran pour lancer une partie
+- L'oiseau avance seule, il suffit de cliquer sur l'écran pour le faire voler plus ou moins haut

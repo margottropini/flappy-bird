@@ -1,0 +1,25 @@
+{
+  "name": "flappy-bird",
+  "version": "1.0.0",
+  "description": "https://developer.mozilla.org/fr/docs/Web/API/HTMLCanvasElement/getContext",
+  "main": "script.js",
+  "dependencies": {
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/margottropini/flappy-bird.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/margottropini/flappy-bird/issues"
+  },
+  
+  "scripts": {
+    "start": "webpack-dev-server --hot"
+},
+
+  "homepage": "https://github.com/margottropini/flappy-bird#readme"
+}
